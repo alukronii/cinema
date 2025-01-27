@@ -24,7 +24,10 @@ public class MovieRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void selectAll() {
-        String sql = "SELECT * FROM movie";
+        String sql = """
+            SELECT *
+            FROM movie
+            """;
         List<Movie> result= jdbcTemplate.query(sql, this::mapToMovie);
         log.info(result.toString());
     }
@@ -39,7 +42,11 @@ public class MovieRepository {
     }
 
     public Optional<Movie> findById(Integer id) {
-        String sql = "SELECT * FROM movie WHERE id = ?";
+        String sql = """
+            SELECT *
+            FROM movie
+            WHERE id = ?
+            """;
         try {
             return of(jdbcTemplate.queryForObject(sql, this::mapToMovie, id));
         } catch (EmptyResultDataAccessException e) {
@@ -49,7 +56,11 @@ public class MovieRepository {
 
     public void save(Movie movie) {
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        String sql = "INSERT INTO movie (movie_name, movie_description) VALUES (? ,?) RETURNING id";
+        String sql = """
+            INSERT INTO movie (movie_name, movie_description)
+            VALUES (? ,?)
+            RETURNING id
+            """;
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, movie.getMovieName());

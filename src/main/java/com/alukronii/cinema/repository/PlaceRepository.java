@@ -22,7 +22,10 @@ public class PlaceRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void selectAll() {
-        String sql = "SELECT * FROM place";
+        String sql = """
+            SELECT *
+            FROM place
+            """;
         List<Place> result= jdbcTemplate.query(sql, this::mapToPlace);
         System.out.println(result);
     }
@@ -36,13 +39,15 @@ public class PlaceRepository {
     }
 
     public Optional<Place> findById(Integer id) {
-        String sql = "SELECT * FROM place WHERE id = ?";
+        String sql = """
+            SELECT *
+            FROM place
+            WHERE id = ?
+            """;
         try {
             return of(jdbcTemplate.queryForObject(sql, this::mapToPlace, id));
         } catch (EmptyResultDataAccessException e) {
             return empty();
         }
     }
-
-
 }

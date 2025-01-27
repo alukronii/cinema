@@ -26,13 +26,20 @@ public class SessionRepository {
     private final MovieRepository movieRepository;
 
     public void selectAll() {
-        String sql = "SELECT * FROM session";
+        String sql = """
+            SELECT *
+            FROM session
+            """;
         List<Session> result= jdbcTemplate.query(sql, this::mapToSession);
         log.info(result.toString());
     }
 
     public Optional<Session> findById(Integer id) {
-        String sql = "SELECT * FROM session WHERE id = ?";
+        String sql = """
+            SELECT *
+            FROM session
+            WHERE id = ?
+            """;
         try {
             return of(jdbcTemplate.queryForObject(sql, this::mapToSession, id));
         } catch (EmptyResultDataAccessException e) {
@@ -55,7 +62,11 @@ public class SessionRepository {
 
     public void save(Session session) {
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        String sql = "INSERT INTO session (movie_id, timestamp, ticket_price) VALUES (?, ?, ?) RETURNING id";
+        String sql = """
+            INSERT INTO session (movie_id, timestamp, ticket_price)
+            VALUES (?, ?, ?)
+            RETURNING id
+            """;
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, session.getMovie().getId());

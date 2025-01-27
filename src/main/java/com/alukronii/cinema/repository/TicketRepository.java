@@ -27,7 +27,10 @@ public class TicketRepository {
     private final SessionRepository sessionRepository;
 
     public void selectAll() {
-        String sql = "SELECT * FROM ticket";
+        String sql = """
+            SELECT *
+            FROM ticket
+            """;
         List<Ticket> result= jdbcTemplate.query(sql, this::mapToTicket);
         System.out.println(result);
     }
