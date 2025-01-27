@@ -3,6 +3,7 @@ package com.alukronii.cinema.repository;
 import com.alukronii.cinema.entity.Place;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class PlaceRepository {
@@ -41,4 +43,6 @@ public class PlaceRepository {
             return empty();
         }
     }
+
+
 }
