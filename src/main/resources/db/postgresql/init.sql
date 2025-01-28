@@ -27,7 +27,7 @@ CREATE TABLE session (
 	id SERIAL PRIMARY KEY,
 	movie_id INT REFERENCES movie(id),
 	timestamp TIMESTAMP,
-	ticket_price NUMERIC(5,2)
+	ticket_price NUMERIC(50,2)
 );
 
 CREATE TABLE ticket (
